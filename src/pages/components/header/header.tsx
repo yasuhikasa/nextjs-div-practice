@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); //イベントの伝播を止める
+    event.stopPropagation(); // これがないとイベントが親要素に伝播し、handleLayoutClickが呼び出され、メニューが開いてもすぐ閉じてしまう
     setIsMenuOpen(!isMenuOpen);
   };
 
