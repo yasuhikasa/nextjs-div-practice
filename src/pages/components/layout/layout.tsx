@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../header/header';
 
+//Layoutのどこをクリックしても（ヘッダーコンポーネントを含む）、
+//handleLayoutClickが実行され、isMenuOpenがfalseに設定され、メニューが閉じるようになります。
 interface LayoutProps {
   children: React.ReactNode;
 }
