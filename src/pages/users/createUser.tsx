@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import { jobOptions } from '../utils/jobOption';
 import { Users } from '../types/users';
 import Button from '../components/button/button';
+import createUser from '../api/user';
 
 
 const CreateUser: React.FC = () => {
@@ -41,9 +42,18 @@ const CreateUser: React.FC = () => {
     handleSubmit();
   };
 
-  const handleSubmit = () => {
-    console.log(users);
-    closeModal();
+  const handleSubmit = async() => {
+    try {
+      // データをAPIに送信
+      const response = await createUser(users);
+      console.log(response); // 応答をログに出力
+    } catch (error) {
+      // エラーが発生した場合の処理をここに書く
+      console.error('Error submitting user data:', error);
+    } finally {
+      // 成功時、エラー時に関わらずモーダルを閉じる
+      closeModal();
+    }
   };
 
   const openModal = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
