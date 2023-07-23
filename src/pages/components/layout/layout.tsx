@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../header/header';
 
 interface LayoutProps {
@@ -6,11 +6,16 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLayoutClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div>
-      <Header />
+    <div onClick={handleLayoutClick}>
+      <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <main>{children}</main>
-      {/* 他の共通のレイアウトコンポーネントをここに追加する場合はここに記述 */}
     </div>
   );
 };

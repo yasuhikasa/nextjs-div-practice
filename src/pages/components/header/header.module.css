@@ -1,10 +1,72 @@
+/* ヘッダーコンポーネント全体のスタイルを定義 */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex; /* 子要素をフレキシブルボックスとして配置 */
+  align-items: center; /* 子要素を中央揃えに配置 */
+  justify-content: space-between; /* 子要素の間に均等のスペースを配置 */
+  padding: 16px; /* 内側の余白を定義 */
+  background-color: #fff; /* 背景色を設定 */
+  border: 1px solid #ccc; /* ボーダーのスタイルを定義 */
+  border-radius: 8px; /* ボーダーの角を丸くする */
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2); /* ボックスの影を設定 */
+  position: relative; /* 子要素の絶対位置をこの要素に対して設定 */
+}
+
+/* ナビゲーションメニューの基本的なスタイルを定義 */
+.nav {
+  position: absolute; /* header要素に対する相対的な位置に配置 */
+  top: 60px; /* headerのトップから60pxの位置に配置 */
+  left: 0; /* headerの左端からの位置を定義 */
+  background-color: #f0f0f0; /* 背景色を設定 */
+  width: 0; /* 最初はメニューは表示しないため、幅は0 */
+  height: calc(100vh - 60px); /* 画面の高さからheaderの高さを引いた値をメニューの高さに設定 */
+  overflow: hidden; /* ウィンドウをはみ出したメニューアイテムを隠す */
+  transition: width 0.5s; /* メニューが開くときのアニメーション（幅が0から200pxに変化） */
+}
+
+/* メニューが開いている状態のスタイルを定義 */
+.nav.open {
+  width: 200px; /* メニューの幅を200pxに設定 */
+}
+
+/* メニュー内のリストスタイルを定義 */
+.nav ul {
+  list-style: none; /* リストマーカーを非表示にする */
+  padding: 30px; /* パディングを0に設定 */
+  margin: 0; /* マージンを0に設定 */
+}
+
+/* メニュー内のリストアイテムのスタイルを定義 */
+.nav li {
+  padding: 8px; /* パディングを8pxに設定 */
+}
+
+/* メニュー内のリンクのスタイルを定義 */
+.nav a {
+  text-decoration: none; /* テキストの下線を非表示にする */
+  color: #333; /* テキストの色を設定 */
+}
+
+/* ハンバーガーアイコンのスタイルを定義 */
+.menu-icon {
+  cursor: pointer; /* カーソルをポインターに変更 */
+  display: flex; /* バーをフレキシブルボックスとして配置 */
+  flex-direction: column; /* バーを垂直方向に配置 */
+  padding: 8px; /* パディングを8pxに設定 */
+}
+
+/* バーのスタイルを定義 */
+.bar {
+  width: 30px; /* 幅を30pxに設定 */
+  height: 4px; /* 高さを4pxに設定 */
+  background-color: #333; /* 背景色を設定 */
+  margin: 4px 0; /* バー間のマージンを設定 */
+  transition: 0.2s; /* バーが回転するときのアニメーション */
+}
+
+.closeIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 30px;
 }
