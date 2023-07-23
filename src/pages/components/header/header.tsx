@@ -10,12 +10,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleMenuClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); // stop event bubbling up
+    event.stopPropagation(); // これがないとイベントが親要素に伝播し、handleLayoutClickが呼び出され、メニューが開いてもすぐ閉じてしまう
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <header className={styles.header} onClick={e => e.stopPropagation()}>
+    <header className={styles.header} onClick={e => e.stopPropagation()}>　// これがないとイベントが親要素に伝播し、handleLayoutClickが呼び出され、メニューが開いてもすぐ閉じてしまう
       <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`} onClick={handleMenuClick}>
         {isMenuOpen && <div className={styles.closeIcon}>&times;</div>}
         <ul>
