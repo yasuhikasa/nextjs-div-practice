@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Layout from './components/layout/layout';
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -16,7 +17,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <h1>Home Page</h1>
         {/* 他のコンテンツをここに追加 */}
     </Layout>
     </>

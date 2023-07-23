@@ -1,0 +1,144 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: #D5E0F2;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.column {
+  width: 100%;
+  padding: 20px;
+}
+
+.labelInputPair {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.labelInputPair label {
+  width: 30%;
+}
+
+.labelInputPair input,
+.labelInputPair textarea {
+  width: 70%;
+}
+
+.name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name .labelInputPair {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.name .labelInputPair:last-child {
+  margin-right: 0;
+}
+
+.labelInputPairGender {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.labelInputPairGender label {
+  width: 30%;
+}
+
+.radioContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 70%;
+}
+
+.radioContainer label {
+  margin: 0.5em;
+}
+
+.formStyle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.verticalLine {
+  position: relative;
+  width: 1px;
+  height: 0px; /* 縦線の高さを設定 */
+  margin: 0 30px;
+}
+
+.verticalLine::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 2px;
+  height: 400px;
+  background-color: rgba(239, 232, 232, 0.871); /* 縦線の色を設定 */
+}
+
+.select {
+  width: 30%;
+  margin-bottom: 10px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.textInput {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textArea {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textBirth {
+  max-width: 100px;
+  margin-bottom: 10px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* 以下、レスポンシブ対応の追加スタイル */
+@media screen and (max-height: 600px) {
+  .container {
+    width: 100%;
+    height: auto; /* height:autoは自動的に中身の要素にピッタリの高さにするプロパティ */
+    overflow: auto; /*autoの値は、内容がはみ出した場合にスクロールバーを表示する */
+  }
+  .column {
+    flex-direction: column; /* 必要に応じて追加 */
+  }
+  /* 他に必要なスタイルを追加 */
+}

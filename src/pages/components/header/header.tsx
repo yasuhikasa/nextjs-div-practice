@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from './header.module.css';
+import styles from '../../../styles/components/header.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface HeaderProps {
   isMenuOpen: boolean;
@@ -9,6 +10,21 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
+  const router = useRouter();
+
+  const getContentName = () => {
+    switch (router.pathname) {
+      case "/":
+        return "Home";
+      case "/about":
+        return "About";
+      case "/users/createUser":
+        return "ユーザー登録";
+      default:
+        return "Unknown Page";
+    }
+  }
+
   const handleMenuClick = (event: React.MouseEvent) => {
     event.stopPropagation(); // これがないとイベントが親要素に伝播し、handleLayoutClickが呼び出され、メニューが開いてもすぐ閉じてしまう
     setIsMenuOpen(!isMenuOpen);
@@ -25,6 +41,9 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
           <li>
             <Link href="/about">About</Link>
           </li>
+          <li>
+            <Link href="/users/createUser">ユーザー登録</Link>
+          </li>
         </ul>
       </nav>
       <div className={styles.menuIcon} onClick={handleMenuClick}>
@@ -33,10 +52,10 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className={styles.bar}></div>
       </div>
       <div>
-        <Image src="/kuma_01.png" alt="Logo" width={100} height={40} />
+        <Image src="/kuma_01.png" alt="Logo" width={100} height={40} priority />
       </div>
       <div>
-        コンテンツ名
+        {getContentName()}
       </div>
       <div>
         ユーザー名
