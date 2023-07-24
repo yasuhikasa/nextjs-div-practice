@@ -11,7 +11,6 @@ import createUser from '../api/user';
 
 const CreateUser: React.FC = () => {
   const [users, setUsers] = React.useState<Users>({
-    id: 1,
     lastName: '',
     firstName: '',
     lastNameKana: '',
@@ -51,6 +50,19 @@ const CreateUser: React.FC = () => {
       // エラーが発生した場合の処理をここに書く
       console.error('Error submitting user data:', error);
     } finally {
+      // 成功時、エラー時に関わらずフォームをリセット
+      setUsers({
+        lastName: '',
+        firstName: '',
+        lastNameKana: '',
+        firstNameKana: '',
+        email: '',
+        phone: '',
+        notes: '',
+        gender: '',
+        dateOfBirth: '',
+        job: '',
+      });
       // 成功時、エラー時に関わらずモーダルを閉じる
       closeModal();
     }
