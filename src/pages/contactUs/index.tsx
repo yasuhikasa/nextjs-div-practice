@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../components/layout/layout';
 import styles from '../../styles/components/contactUs.module.css';
 import Button from '../components/button/button';
 import { ContactUs } from '../types/contactUs';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { FormDataContext } from '../context/formDataProvider';
 
 
 
@@ -13,6 +14,9 @@ const Index:React.FC = () => {
   const router = useRouter();
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactUs>();
+
+  const { setFormData } = useContext(FormDataContext);
+
 
   //フォーム送信時にすべてのフォームデータが onSubmit 関数に渡されます。
   const onSubmit = async (data: ContactUs) => {
@@ -27,8 +31,11 @@ const Index:React.FC = () => {
       //   alert('お問い合わせの送信に失敗しました。もう一度お試しください。');
       // }
 
+    // ここでsetFormDataを使ってデータを保存する
+    setFormData(data);
+
     // 確認画面へ画面遷移
-      router.push('/confirm');
+      router.push('/contactUs/confirm');
   };
 
 
