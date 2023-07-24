@@ -10,6 +10,10 @@ const Confirm:React.FC = () => {
 
   const router = useRouter();
 
+  if (!context) {
+    return <div>Loading...</div>;  // または適切なエラーメッセージ
+  }
+
   const { formData } = context;
 
   const handleSubmit = async() => {
