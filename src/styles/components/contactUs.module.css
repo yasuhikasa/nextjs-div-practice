@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100%;
+    background-color: #D5E0F2;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 50px;
+}
+
+.form {
+  width: 40%;
+}
+
+.h2{
+  margin-bottom: 20px;
+}
+
+.labelInputPair
+{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.labelInputPair label
+{
+  width: 30%;
+}
+
+.labelInputPair input,
+.labelInputPair textarea
+{
+  width: 70%;
+}
+
+.select {
+  width: 30%;
+  margin-bottom: 10px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.textInput {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.textArea {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttonPlace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.button {
+  width: 100px;
+  height: 40px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 20px;
+}
