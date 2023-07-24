@@ -11,7 +11,7 @@ import createUser from '../api/user';
 
 const CreateUser: React.FC = () => {
   const [users, setUsers] = React.useState<Users>({
-    id: 0,
+    id: 1,
     lastName: '',
     firstName: '',
     lastNameKana: '',
