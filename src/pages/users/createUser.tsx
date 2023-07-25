@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import { jobOptions } from '../utils/jobOption';
 import { Users } from '../types/users';
 import Button from '../components/button/button';
-import createUser from '../api/user';
+import { createUser } from '../api/user';
 
 
 const CreateUser: React.FC = () => {
