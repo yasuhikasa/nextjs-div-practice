@@ -22,6 +22,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
         return "ユーザー登録";
       case "/users":
         return "ユーザー一覧";
+        case "/hookFormExample/createUser":
+          return "HookForm例";
       case "/contactUs":
         return "お問い合わせ";
       default:
@@ -50,6 +52,9 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
           </li>
           <li>
             <Link href="/users">ユーザー一覧</Link>
+          </li>
+          <li>
+            <Link href="/hookFormExample/createUser">HookForm例</Link>
           </li>
           <li>
             <Link href="/contactUs">お問い合わせ</Link>

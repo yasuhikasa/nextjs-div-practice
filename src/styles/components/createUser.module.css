@@ -130,6 +130,12 @@
   border-radius: 5px;
 }
 
+.errorMessage {
+  min-height: 20px;
+  color: red;
+  font-size: 10px;
+}
+
 /* 以下、レスポンシブ対応の追加スタイル */
 @media screen and (max-height: 600px) {
   .container {
