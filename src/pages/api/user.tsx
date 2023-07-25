@@ -4,6 +4,7 @@ import { Users } from '../types/users'; // 型をインポート
 export const createUser = async (userData: Users) => { // Users 型を指定
   try {
     const response = await axios.post('http://localhost:4000/users/create-user', userData);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error creating user:', error);
@@ -11,14 +12,25 @@ export const createUser = async (userData: Users) => { // Users 型を指定
   }
 }
 
-export const getUsers = async () =>{
+export const getUsers = async (page:number) => {
   try {
-    const response = await axios.get('http://localhost:4000/users/get-users');
+    const response = await axios.get(`http://localhost:4000/users/get-users?page=${page}`);
     return response.data;
   } catch (error) {
     console.error('Error getting users:', error);
     throw error;
   }
 }
+
+export const getTotalUsers = async () => {
+  const response = await fetch('http://localhost:4000/users/get-total-users');
+  if (!response.ok) {
+    throw new Error('Error getting total users');
+  }
+  const data = await response.json();
+  return data;
+};
+
+
 
 

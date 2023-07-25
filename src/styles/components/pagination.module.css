@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.pagination button {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #3f51b5; /* Material-UI のデフォルトの色 */
+}
+
+.pagination button:disabled {
+  background-color: #e0e0e0; /* Material-UI のデフォルトの disabled 色 */
+  cursor: not-allowed;
+}
+
+.pagination button.active {
+  background-color: #303f9f; /* Material-UI の選択された色 */
+}
+
