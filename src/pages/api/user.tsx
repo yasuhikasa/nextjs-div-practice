@@ -31,6 +31,26 @@ export const getTotalUsers = async () => {
   return data;
 };
 
+//編集用に個別のユーザーを取得する処理
+export const getUser = async (id: number) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/users/get-user/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error getting user with ID: ${id}`, error);
+    throw error;
+  }
+}
+
+export const editUser = async (userData: Users) => {
+  try {
+    const response = await axios.put(`http://localhost:4000/users/edit-user/${userData.id}`, userData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error editing user:', error);
+    throw error;
+  }
 
 
-
+}

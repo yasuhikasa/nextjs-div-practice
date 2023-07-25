@@ -1,4 +1,6 @@
 export interface Users {
+  //新規登録にはIDは不要だが、編集には必要なので、IDはオプションにする
+  id?: string | number;
   lastName: string;
   firstName: string;
   lastNameKana: string;

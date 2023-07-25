@@ -4,6 +4,9 @@ import { getUsers, getTotalUsers } from '../api/user';
 import styles from '../../styles/components/usersIndex.module.css';
 import { Users } from '../types/users';
 import Pagination from '../components/pagination/pagination';
+import { useRouter } from 'next/router';
+import Button from '../components/button/button';
+
 
 
 const genderLabels: { [key: string]: string } = {
@@ -22,6 +25,9 @@ const jobOptionsMap: { [key: string]: string } = {
 };
 
 const Index:React.FC =()=> {
+
+  //現在のURLのクエリパラメータを表すオブジェクトを返す
+  const router = useRouter();
 
   // バックエンドからusersデータと全ユーザー数を取得する処理
   const [users, setUsers] = React.useState<Users[]>([]);
@@ -82,6 +88,11 @@ const Index:React.FC =()=> {
             <div>{genderLabels[user.gender]}</div>
             <div>{formatDate(user.dateOfBirth)}</div>
             <div>{jobOptionsMap[user.job]}</div>
+            <Button
+              title="Edit"
+              buttonType="button"
+              onClick={() => router.push(`/users/editUser/${user.id}`)}
+            />
           </div>
         ))}
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
