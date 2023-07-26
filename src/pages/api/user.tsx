@@ -51,6 +51,18 @@ export const editUser = async (userData: Users) => {
     console.error('Error editing user:', error);
     throw error;
   }
+}
 
 
+export const deleteUsers = async (userIds: string[]) => {
+  try {
+    // Promise.allを使用して、すべての削除リクエストが完了するのを待つ
+    await Promise.all(userIds.map(async (id) => {
+      const response = await axios.delete(`http://localhost:4000/users/delete-user/${id}`);
+      return response.data;
+    }));
+  } catch (error) {
+    console.error('Error deleting users:', error);
+    throw error;
+  }
 }

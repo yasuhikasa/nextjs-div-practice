@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/layout/layout';
-import { getUsers, getTotalUsers } from '../api/user';
+import { getUsers, getTotalUsers,deleteUsers } from '../api/user';
 import styles from '../../styles/components/usersIndex.module.css';
 import { Users } from '../types/users';
 import Pagination from '../components/pagination/pagination';
@@ -33,6 +33,9 @@ const Index:React.FC =()=> {
   const [users, setUsers] = React.useState<Users[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
+
+  // セレクトボックスの状態
+  const [action, setAction] = useState('');
 
   // この新しい状態を作成して、各ユーザーが選択されているかどうかを管理します。
   const [selectedUsers, setSelectedUsers] = useState<Record<string, boolean>>({});
@@ -77,6 +80,38 @@ const Index:React.FC =()=> {
     fetchTotalUsers();
   }, [page]);
 
+
+  //削除ボタンを押した時の処理
+  const handleAction = async () => {
+    if (action === 'delete') {
+      const selectedUserIds = Object.keys(selectedUsers).filter(userId => selectedUsers[userId]);
+
+      if (selectedUserIds.length === 0) {
+        alert('削除するためのユーザーが選択されていません。');
+        return;
+      }
+
+      // 確認ダイアログを表示する
+      const confirmDelete = window.confirm('選択されたユーザーを削除してもよろしいですか？');
+
+      if (confirmDelete) {
+        // ユーザーがクリックした場合、ユーザーを削除する
+        try {
+          // ユーザーを削除する
+          await deleteUsers(selectedUserIds);
+          // ユーザーを再取得する
+          const response = await getUsers(page);
+          setUsers(response);
+          // 選択されたユーザーをリセットする
+          setSelectedUsers({});
+        } catch (error) {
+          console.error('Error deleting users:', error);
+        }
+      }
+    }
+  }
+
+
   //生年月日の日付のフォーマットを変更する処理
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -92,6 +127,13 @@ const Index:React.FC =()=> {
     <Layout>
       <div>
         <h2>ユーザー一覧</h2>
+        <div>
+            <select value={action} onChange={(event) => setAction(event.target.value)}>
+              <option value="">選択してください</option>
+              <option value="delete">削除</option>
+            </select>
+            <button onClick={handleAction}>適用</button>
+          </div>
         <div className={styles.usersTitle}>
           <div>
             <input type="checkbox" onChange={toggleAllUsersSelection} checked={allUsersSelected} />

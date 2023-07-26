@@ -26,3 +26,5 @@ const TableComponent =({ users }: { users: Users[] }) => {
     </table>
   );
 }
+
+export default TableComponent;
