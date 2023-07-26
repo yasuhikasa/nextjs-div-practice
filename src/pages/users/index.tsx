@@ -34,6 +34,26 @@ const Index:React.FC =()=> {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
 
+  // この新しい状態を作成して、各ユーザーが選択されているかどうかを管理します。
+  const [selectedUsers, setSelectedUsers] = useState<Record<string, boolean>>({});
+
+  // すべてのユーザーが選択されているかどうかを確認します。
+  const allUsersSelected = users.every(user => (user.id ? selectedUsers[user.id.toString()] : false));
+
+  // 各ユーザーの選択状態を切り替えるハンドラー
+  const toggleUserSelection = (id: string) => {
+    setSelectedUsers(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  // すべてのユーザーの選択状態を切り替えるハンドラー
+  const toggleAllUsersSelection = () => {
+    if (allUsersSelected) {
+      setSelectedUsers({});
+    } else {
+      setSelectedUsers(users.reduce((obj, user) => (user.id ? { ...obj, [user.id.toString()]: true } : obj), {}));
+    }
+  };
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -73,7 +93,9 @@ const Index:React.FC =()=> {
       <div>
         <h2>ユーザー一覧</h2>
         <div className={styles.usersTitle}>
-          <div>名前</div>
+          <div>
+          <input type="checkbox" onChange={toggleAllUsersSelection} checked={allUsersSelected} />
+            名前</div>
           <div>メールアドレス</div>
           <div>電話番号</div>
           <div>性別</div>
@@ -82,6 +104,7 @@ const Index:React.FC =()=> {
         </div>
         {users.map((user,index) => (
           <div key={index} className={styles.usersItem}>
+            <input type="checkbox" onChange={() => user.id && toggleUserSelection(user.id.toString())} checked={selectedUsers[user.id ? user.id.toString() : ''] || false} />
             <div>{user.firstName} {user.lastName}</div>
             <div>{user.email}</div>
             <div>{user.phone}</div>
