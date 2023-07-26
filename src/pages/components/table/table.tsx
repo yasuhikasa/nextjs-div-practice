@@ -1,5 +1,5 @@
-import styles from './Table.module.css';
-import { Users } from '../types/users';
+import styles from '../../../styles/components/table.module.css';
+import { Users } from '../../types/users';
 
 // テーブルのコンポーネント
 const TableComponent =({ users }: { users: Users[] }) => {
