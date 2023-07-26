@@ -39,6 +39,15 @@ const CreateUser: React.FC = () => {
     '': ''
   };
 
+  const jobOptionsMap: { [key: string]: string } = {
+    '': '選択してください',
+    'student': '学生',
+    'engineer': 'エンジニア',
+    'teacher': '教師',
+    'artist': '芸術家'
+    // ...
+  };
+
   const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setUsers((prevData) => ({ ...prevData, [name]: value }));
@@ -262,7 +271,7 @@ const CreateUser: React.FC = () => {
                 <p>電話番号:  {users.phone}</p>
                 <p>性別:  {genderLabels[users.gender]}</p>
                 <p>生年月日:  {users.dateOfBirth}</p>
-                <p>職業:  {users.job}</p>
+                <p>職業:  {jobOptionsMap[users.job]}</p>
                 <p>備考:  {users.notes}</p>
                 <div className={modalStyles.submit}>
                   <Button title="キャンセル" className={modalStyles.cancelButton} onClick={closeModal} />
