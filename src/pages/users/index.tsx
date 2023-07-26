@@ -102,6 +102,7 @@ const Index:React.FC =()=> {
           <div>性別</div>
           <div>生年月日</div>
           <div>職業</div>
+          <div></div>
         </div>
         {users.map((user,index) => (
           <div key={index} className={styles.usersItem}>
@@ -114,11 +115,13 @@ const Index:React.FC =()=> {
             <div>{genderLabels[user.gender]}</div>
             <div>{formatDate(user.dateOfBirth)}</div>
             <div>{jobOptionsMap[user.job]}</div>
-            <Button
-              title="Edit"
-              buttonType="button"
-              onClick={() => router.push(`/users/editUser/${user.id}`)}
-            />
+            <div>
+              <Button
+                title="Edit"
+                buttonType="button"
+                onClick={() => router.push(`/users/editUser/${user.id}`)}
+              />
+            </div>
           </div>
         ))}
         <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />

@@ -7,7 +7,6 @@
 .usersTitle,
 .usersItem {
   display: flex;
-  justify-content: space-between;
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -30,30 +29,35 @@
 
 .usersTitle div:nth-child(2),
 .usersItem div:nth-child(2) {
-  flex: 1.5; /* 名前 */
+  flex: 2; /* 名前 */
 }
 
 .usersTitle div:nth-child(3),
 .usersItem div:nth-child(3) {
-  flex: 2; /* メールアドレス */
+  flex: 2.5; /* メールアドレス */
 }
 
 .usersTitle div:nth-child(4),
 .usersItem div:nth-child(4) {
-  flex: 1.5; /* 電話番号 */
+  flex: 2; /* 電話番号 */
 }
 
 .usersTitle div:nth-child(5),
 .usersItem div:nth-child(5) {
-  flex: 1; /* 性別 */
+  flex: 1.5; /* 性別 */
 }
 
 .usersTitle div:nth-child(6),
 .usersItem div:nth-child(6) {
-  flex: 1.5; /* 生年月日 */
+  flex: 2; /* 生年月日 */
 }
 
 .usersTitle div:nth-child(7),
 .usersItem div:nth-child(7) {
-  flex: 1.5; /* 職業 */
+  flex: 2; /* 職業 */
 }
+
+.usersItem div:nth-child(8) {
+  flex: 0; /* ボタン */
+}
+
