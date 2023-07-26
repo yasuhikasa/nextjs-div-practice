@@ -94,8 +94,9 @@ const Index:React.FC =()=> {
         <h2>ユーザー一覧</h2>
         <div className={styles.usersTitle}>
           <div>
-          <input type="checkbox" onChange={toggleAllUsersSelection} checked={allUsersSelected} />
-            名前</div>
+            <input type="checkbox" onChange={toggleAllUsersSelection} checked={allUsersSelected} />
+          </div>
+            <div>名前</div>
           <div>メールアドレス</div>
           <div>電話番号</div>
           <div>性別</div>
@@ -104,7 +105,9 @@ const Index:React.FC =()=> {
         </div>
         {users.map((user,index) => (
           <div key={index} className={styles.usersItem}>
-            <input type="checkbox" onChange={() => user.id && toggleUserSelection(user.id.toString())} checked={selectedUsers[user.id ? user.id.toString() : ''] || false} />
+            <div>
+              <input type="checkbox" onChange={() => user.id && toggleUserSelection(user.id.toString())} checked={selectedUsers[user.id ? user.id.toString() : ''] || false} />
+            </div>
             <div>{user.firstName} {user.lastName}</div>
             <div>{user.email}</div>
             <div>{user.phone}</div>

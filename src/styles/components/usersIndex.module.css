@@ -25,30 +25,35 @@
 /* 親要素から見たn番目のdivタグにスタイルを当てる */
 .usersTitle div:nth-child(1),
 .usersItem div:nth-child(1) {
-  flex: 1.5; /* 名前   flex-growのこと*/
+  flex: 0.5; /* チェックボックス */
 }
 
 .usersTitle div:nth-child(2),
 .usersItem div:nth-child(2) {
-  flex: 2; /* メールアドレス */
+  flex: 1.5; /* 名前 */
 }
 
 .usersTitle div:nth-child(3),
 .usersItem div:nth-child(3) {
-  flex: 1.5; /* 電話番号 */
+  flex: 2; /* メールアドレス */
 }
 
 .usersTitle div:nth-child(4),
 .usersItem div:nth-child(4) {
-  flex: 1; /* 性別 */
+  flex: 1.5; /* 電話番号 */
 }
 
 .usersTitle div:nth-child(5),
 .usersItem div:nth-child(5) {
-  flex: 1.5; /* 生年月日 */
+  flex: 1; /* 性別 */
 }
 
 .usersTitle div:nth-child(6),
 .usersItem div:nth-child(6) {
+  flex: 1.5; /* 生年月日 */
+}
+
+.usersTitle div:nth-child(7),
+.usersItem div:nth-child(7) {
   flex: 1.5; /* 職業 */
 }
