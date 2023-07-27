@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  /* ヘッダースタイル */
+}
+
+.mainContent {
+  /* メインコンテンツスタイル */
+}
+
+.sidebar {
+  /* サイドバースタイル */
+  display: none; /* デフォルトでは非表示 */
+}
+
+.footer {
+  /* フッタースタイル */
+}
+
+/* 画面幅が 600px を超えた場合のスタイル */
+@media (min-width: 600px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .sidebar {
+    display: block; /* サイドバーを表示 */
+  }
+}
