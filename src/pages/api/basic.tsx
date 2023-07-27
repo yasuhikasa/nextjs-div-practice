@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Define the shape of an item here
-interface Item {
-  id: string;
+export interface Item {
+  id: number;
   name: string;
   price: number;
 }
@@ -31,7 +31,7 @@ export const createItem = async (item: Omit<Item, 'id'>): Promise<Item | null> =
   }
 }
 
-export const updateItem = async (id: string, updatedItem: Omit<Item, 'id'>): Promise<Item | null> => {
+export const updateItem = async (id: number, updatedItem: Omit<Item, 'id'>): Promise<Item | null> => {
   try {
     const response = await axios.put<Item>(`${API_URL}/items/${id}`, updatedItem);
     return response.data;
@@ -42,7 +42,7 @@ export const updateItem = async (id: string, updatedItem: Omit<Item, 'id'>): Pro
   }
 }
 
-export const deleteItem = async (id: string): Promise<void> => {
+export const deleteItem = async (id: number): Promise<void> => {
   try {
     await axios.delete(`${API_URL}/items/${id}`);
   } catch (error) {
@@ -61,7 +61,7 @@ export const deleteAllUsers = async (): Promise<void> => {
 }
 
 // 特定のユーザーを取得する関数
-export const getUser = async (id: string): Promise<Item | null> => {
+export const getItem = async (id: number): Promise<Item | null> => {
   try {
     const response = await axios.get<Item>(`${API_URL}/users/${id}`);
     return response.data;

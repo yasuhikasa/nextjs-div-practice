@@ -40,10 +40,23 @@ const CreateUser: React.FC = () => {
     // ...
   };
 
+
+
+  // 各種フォーム要素（テキストフィールド、チェックボックス、ラジオボタン、セレクトボックスなど）から発生する onChange イベントを処理
   const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setUsers((prevData) => ({ ...prevData, [name]: value }));
   };
+
+//   const inputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+//     const { name, value, type, checked } = event.target;
+//     if (type === "checkbox") {
+//       setUsers((prevData) => ({ ...prevData, [name]: checked }));
+//     } else {
+//       setUsers((prevData) => ({ ...prevData, [name]: value }));
+//     }
+// };
+
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
