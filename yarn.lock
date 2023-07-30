@@ -3058,6 +3058,11 @@
     "@floating-ui/dom" "^0.5.3"
     "use-isomorphic-layout-effect" "^1.1.1"
 
+"@fontsource/inter@^5.0.5":
+  "integrity" "sha512-RE1JmWRB6Kxo+1nXUnORSSH5uKgUZ2QEQE+h/nsNt758C+17G9y26E9QiAsIqsG13NpKhwn22EeECfyC+da5ew=="
+  "resolved" "https://registry.npmjs.org/@fontsource/inter/-/inter-5.0.5.tgz"
+  "version" "5.0.5"
+
 "@hapi/hoek@^9.0.0":
   "integrity" "sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ=="
   "resolved" "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz"

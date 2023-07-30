@@ -1,12 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import Layout from './components/layout/layout';
 import React from 'react';
+import SimpleLogin from './components/simpleLogin/simpleLogin';
+import SimpleSignup from './components/simpleLogin/simpleSignup';
 
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
@@ -18,7 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {/* 他のコンテンツをここに追加 */}
+        <SimpleLogin />
+        <SimpleSignup />
     </Layout>
     </>
   )
