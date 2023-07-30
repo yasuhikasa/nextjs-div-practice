@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Papa from 'papaparse';
-import { createUser } from '../api/register';
+import axios from 'axios';
 
 
 export interface User {
@@ -33,20 +33,23 @@ const UserImport: React.FC = () => {
   }, []);
 
 
+  // バックエンドでcognitoと連携し、DBにユーザー情報を保存する場合は
+  // 普通のREST APIを作成して、そのAPIを呼び出すようにする。
+  // ここではバックエンドでの処理を前提としているので、axiosを使ってバックエンドのAPIを呼び出している。
+
   const handleCreateUsers = async () => {
     setIsDialogOpen(false);
 
-    for (let user of users) {
-      try {
-        await createUser(user);
-        console.log('User created', user.email);
-      } catch (error) {
-        console.error('Error creating user', error);
-      }
+    try {
+      const response = await axios.post('/api/signup', users);
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.error('Error signing up:', error);
     }
 
     setUsers([]);
-  };
+};
 
   const openDialog = () => {
     setIsDialogOpen(true);
