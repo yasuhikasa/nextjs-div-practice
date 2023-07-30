@@ -10,9 +10,9 @@ const SimpleLogin = () => {
   const onSubmit = async (data: Users) => {
     const response = await axios.post('http://localhost:4000/simpleLogin/simpleLogin', { email: data.email, password: data.user_password });
     if (response.data.status === 'success') {
-      // Login was successful, redirect to the user's home page
-      // Replace '/home' with the path to your user's home page
-      window.location.href = '/users/createUser';
+      console.log(response.data.id)
+      // バックエンドからレスポンスを受け取り、ログイン成功したら、ユーザー情報を保存する。
+      window.location.href = `/mypage/${response.data.user.id}`;
     } else {
       // Login failed, show an error message
       console.log('Login failed:', response.data.message);
