@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Papa from 'papaparse';
+import { createUser } from '../api/register';
+
 
 export interface User {
   lastName: string;
@@ -9,6 +11,8 @@ export interface User {
   email: string;
   phone: string;
   gender: 'male' | 'female' | '';
+  dateOfBirth: string;
+  job: string;
 }
 
 const UserImport: React.FC = () => {
@@ -33,22 +37,12 @@ const UserImport: React.FC = () => {
     setIsDialogOpen(false);
 
     for (let user of users) {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-
-      if (!response.ok) {
-        // handle error
-        console.error(await response.text());
-        continue;
+      try {
+        await createUser(user);
+        console.log('User created', user.email);
+      } catch (error) {
+        console.error('Error creating user', error);
       }
-
-      // handle success
-      console.log('User created', user.email);
     }
 
     setUsers([]);
