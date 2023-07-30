@@ -1,15 +1,28 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Auth } from '@aws-amplify/auth';
+import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 
 interface ISignInFormInputs {
   email: string;
   password: string;
 }
 
+
+// AWS Amplifyを使用している場合、ユーザー認証の状態管理は基本的にAmplifyが行います。
+// ユーザーがサインインすると、AmplifyはJWTを使用してセッション情報を保存し、後続のリクエストでその情報を使用します
 const SignIn: React.FC = () => {
   const [signInError, setSignInError] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm<ISignInFormInputs>();
+
+
+  // SSOの関数を実装する。
+  // Google、Facebook、Amazonとの連携を実装するためには、これらのプラットフォームでアプリケーションを作成し、それぞれのクライアントIDとシークレットを取得する必要があります。
+  // これらの情報を使用してAWS Amplify ConsoleでIDプロバイダーを設定します
+  const signInWithProvider = (provider: CognitoHostedUIIdentityProvider) => {
+    Auth.federatedSignIn({ provider })
+      .then(user => console.log(user))
+      .catch(err => console.log(err));
+  };
 
   const onSubmit = async (data: ISignInFormInputs) => {
     try {
@@ -41,6 +54,11 @@ const SignIn: React.FC = () => {
       {errors.password && <p>Password is required</p>}
       <button type="submit">Sign In</button>
       {signInError && <p>{signInError}</p>}
+      <div>
+        <button onClick={() => signInWithProvider(CognitoHostedUIIdentityProvider.Google)}>Sign in with Google</button>
+        <button onClick={() => signInWithProvider(CognitoHostedUIIdentityProvider.Facebook)}>Sign in with Facebook</button>
+        <button onClick={() => signInWithProvider(CognitoHostedUIIdentityProvider.Amazon)}>Sign in with Amazon</button>
+      </div>
     </form>
   );
 };
