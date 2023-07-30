@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Auth, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
+import axios from 'axios';
 
 interface ISignInFormInputs {
   email: string;
@@ -28,6 +29,9 @@ const SignIn: React.FC = () => {
     try {
       const user = await Auth.signIn(data.email, data.password);
       console.log(user);
+
+      // ユーザーがサインインしたら、サインインした日時をDBに保存するリクエストをバックエンドに送信する
+      await axios.post('/api/updateLastLogin', { email: data.email });
     } catch (error) {
       console.error('Error signing in:', error);
       if (error instanceof Error) {
