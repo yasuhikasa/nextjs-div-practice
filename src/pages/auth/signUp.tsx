@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { GetServerSideProps } from 'next';
 import { withSSRContext } from 'aws-amplify';
@@ -29,14 +29,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 //サインアップ機能の実装
 
 interface ISignUpFormInputs {
-  email: string;
-  firstName: string;
+  id?: string | number;
   lastName: string;
+  firstName: string;
+  lastNameKana: string;
+  firstNameKana: string;
+  email: string;
+  phone: string;
+  notes?: string;
+  gender: 'male' | 'female' |'',
+  dateOfBirth: string;
+  job: string;
+  skills: string[];
+}
+
+interface ISkill {
+  skillName: string;
 }
 
 const SignUp: React.FC = () => {
   const [signUpError, setSignUpError] = useState("");
   const { register, handleSubmit, formState: { errors } } = useForm<ISignUpFormInputs>();
+
+  // 配列でスキルを管理するためのuseState
+  const [skills, setSkills] = useState<ISkill[]>([]);
 
   // バックエンドでcognitoと連携し、DBにユーザー情報を保存する場合は下でコメントアウトしているonSubmitではなく
   // 普通のREST APIを作成して、そのAPIを呼び出すようにする。
@@ -56,6 +72,20 @@ const SignUp: React.FC = () => {
     }
   };
 
+  // ユーザーがスキルを選択できるようにするため、バックエンドのskillsテーブルからスキルの一覧を取得している。
+  useEffect(() => {
+    const getSkills = async () => {
+      try {
+        const response = await axios.get('/api/skills');
+        setSkills(response.data);
+      } catch (error) {
+        console.error('Error fetching skills:', error);
+      }
+    };
+
+    getSkills();
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input
@@ -64,20 +94,88 @@ const SignUp: React.FC = () => {
         placeholder="Email"
       />
       {errors.email && <p>Email is required</p>}
+
       <input
         {...register("firstName", { required: true })}
         type="text"
         placeholder="First Name"
       />
       {errors.firstName && <p>First Name is required</p>}
+
       <input
         {...register("lastName", { required: true })}
         type="text"
         placeholder="Last Name"
       />
       {errors.lastName && <p>Last Name is required</p>}
-      <button type="submit">Sign Up</button>
-      {signUpError && <p>{signUpError}</p>}
+
+      <input
+        {...register("firstNameKana", { required: true })}
+        type="text"
+        placeholder="First Name Kana"
+      />
+      {errors.firstNameKana && <p>First Name Kana is required</p>}
+
+      <input
+        {...register("lastNameKana", { required: true })}
+        type="text"
+        placeholder="Last Name Kana"
+      />
+      {errors.lastNameKana && <p>Last Name Kana is required</p>}
+
+      <input
+        {...register("phone", { required: true })}
+        type="tel"
+        placeholder="Phone Number"
+      />
+      {errors.phone && <p>Phone Number is required</p>}
+
+      <select {...register("job", { required: true })}>
+        <option value="">Select Job</option>
+        <option value="student">Student</option>
+        <option value="engineer">Engineer</option>
+        <option value="teacher">Teacher</option>
+        <option value="artist">Artist</option>
+      </select>
+      {errors.job && <p>Job is required</p>}
+
+      <div>
+        <label htmlFor="male">Male</label>
+        <input
+          {...register("gender", { required: true })}
+          type="radio"
+          value="male"
+          id="male"
+        />
+
+        <label htmlFor="female">Female</label>
+        <input
+          {...register("gender", { required: true })}
+          type="radio"
+          value="female"
+          id="female"
+        />
+      </div>
+      {errors.gender && <p>Gender selection is required</p>}
+
+      <input
+      {...register("dateOfBirth", { required: true })}
+      type="date"
+      placeholder="Date of Birth"
+    />
+    {errors.dateOfBirth && <p>Date of Birth is required</p>}
+    <div>
+      {skills.map((skill, index) => (
+          <div key={index}>
+            <label>{skill.skillName}</label>
+            <input type="checkbox" value={skill.skillName} {...register("skills")} />
+          </div>
+        ))}
+      {errors.skills && <p>Please select at least one skill</p>}
+    </div>
+      <div>
+        <button type="submit">Sign Up</button>
+      </div>
     </form>
   );
 };
