@@ -7,10 +7,20 @@ const SimpleLogin = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<Users>();
 
 
+  // ローカルストレージはブラウザにデータを永続的に保存するためのもので、
+  // 主にクライアントサイドでの利用が想定されています。
+  // たとえば、ユーザーのログイン情報やアプリの状態を保存するのに使われます。
+
   const onSubmit = async (data: Users) => {
     const response = await axios.post('http://localhost:4000/simpleLogin/simpleLogin', { email: data.email, password: data.user_password });
     if (response.data.status === 'success') {
-      console.log(response.data.id)
+      console.log(response);
+
+      // ログインのレスポンスからユーザーIDを取得
+      let userId = response.data.user.id;
+
+      // ユーザーIDをローカルストレージに保存
+      localStorage.setItem('userId', userId);
       // バックエンドからレスポンスを受け取り、ログイン成功したら、ユーザー情報を保存する。
       window.location.href = `/mypage/${response.data.user.id}`;
     } else {

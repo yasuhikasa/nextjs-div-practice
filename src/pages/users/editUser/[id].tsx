@@ -8,28 +8,35 @@ import { Users } from '../../types/users';
 import Button from '../../components/button/button';
 import { editUser, getUser } from '../../api/user';
 import { useRouter } from 'next/router';
+import { GetServerSidePropsContext } from 'next';
 
 
-const CreateUser: React.FC = () => {
+// ユーザーのIDがページ遷移時には状態として保持されているが、リロード時には失われてしまっている
+// Next.jsでは、リロード時にページの状態はリセットされ、getInitialProps、getServerSideProps、またはgetStaticPropsのいずれかを使用してページに初期データを渡す必要があります
+// そのため、リロード時にはIDをクエリパラメータとしてURLに付与することで、IDを取得する
+// 今回はgetServerSidePropsを使用する。SSRのため、ページのレンダリングはサーバー側で行われる
+// また、getServerSidePropsは、ページコンポーネントの外側でのみエクスポートできる
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query;
+  const res = await fetch(`http://localhost:4000/users/get-user/${id}`);
+  const data = await res.json();
+
+  return { props: { data } };
+}
+
+type Props = {
+  data: Users
+};
+
+const CreateUser: React.FC<Props> = ({ data }) => {
 
   //現在のURLのクエリパラメータを表すオブジェクトを返す
   //例：URLが https://example.com/users/editUser/1 の場合、router.queryは { id: 1 } を返す
   const router = useRouter();
   const id = Number(router.query.id);
 
-
-  const [users, setUsers] = React.useState<Users>({
-    lastName: '',
-    firstName: '',
-    lastNameKana: '',
-    firstNameKana: '',
-    email: '',
-    phone: '',
-    notes: '',
-    gender: '',
-    dateOfBirth: '',
-    job: '',
-  });
+  // SSRで受け取ったユーザー情報を状態として保持する
+  const [users, setUsers] = React.useState<Users>(data);
 
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
@@ -58,15 +65,11 @@ const CreateUser: React.FC = () => {
     handleSubmit();
   };
 
-//生年月日の日付のフォーマットを変更する処理
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const year = date.getUTCFullYear();
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // months start from 0 in JS
-    const day = String(date.getUTCDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
-  }
+// 日付のフォーマット変換関数
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toISOString().split('T')[0];
+}
 
   //編集用に個別のユーザーを取得する処理
   useEffect(() => {
@@ -224,7 +227,7 @@ const CreateUser: React.FC = () => {
                     type="date"
                     id="dateOfBirth"
                     name="dateOfBirth"
-                    value={users.dateOfBirth}
+                    value={formatDate(users.dateOfBirth || '')}
                     className={createUserStyles.textBirth}
                     onChange={inputChange} />
               </div>
@@ -249,7 +252,7 @@ const CreateUser: React.FC = () => {
               <textarea
                 id="notes"
                 name="notes"
-                value={users.notes}
+                value={users.notes || ''}
                 className={createUserStyles.textArea}
                 onChange={inputChange} />
             </div>
@@ -269,9 +272,9 @@ const CreateUser: React.FC = () => {
                 <p>セイ:  {users.lastNameKana}   メイ: {users.firstNameKana}</p>
                 <p>メールアドレス:  {users.email}</p>
                 <p>電話番号:  {users.phone}</p>
-                <p>性別:  {genderLabels[users.gender]}</p>
+                <p>性別:  {users.gender ? genderLabels[users.gender] : ''}</p>
                 <p>生年月日:  {users.dateOfBirth}</p>
-                <p>職業:  {jobOptionsMap[users.job]}</p>
+                <p>職業:  {users.job ? jobOptionsMap[users.job] : ''}</p>
                 <p>備考:  {users.notes}</p>
                 <div className={modalStyles.submit}>
                   <Button title="キャンセル" className={modalStyles.cancelButton} onClick={closeModal} />
@@ -287,3 +290,33 @@ const CreateUser: React.FC = () => {
 }
 
 export default CreateUser;
+
+
+
+// getServerSidePropsとgetStaticPropsは、
+// それぞれサーバーサイドレンダリング（SSR）と静的サイト生成（SSG）をサポートする
+// Next.jsの機能です。
+
+// サーバーサイドレンダリング（SSR）:
+
+// SSRはページがサーバー上でレンダリングされ、クライアントには
+// すでにレンダリング済みのHTMLが送信されるアプローチです。
+// これにより、ページがブラウザでレンダリングされる前にすべてのデータが利用可能になります。
+// Next.jsのgetServerSideProps関数は、このレンダリングモデルをサポートします。
+// 各リクエストごとにページがレンダリングされます。
+
+
+// 静的サイト生成（SSG）:
+
+// SSGはビルド時にすべてのページがレンダリングされ、
+// プレレンダリングされたHTMLが保存されます。
+// これにより、ページへのリクエストがあった場合にはすぐにHTMLが送信され、
+// 非常に高速なページロードを実現します。
+// Next.jsのgetStaticProps関数は、このレンダリングモデルをサポートします。
+// ビルド時に一度だけページがレンダリングされます。
+
+// SSRとSSGの選択は、アプリケーションの要件とデータの性質によります。
+// データが頻繁に変化する場合やリアルタイムのデータが必要な場合は、
+// SSR（getServerSideProps）が適しています。
+// 一方、コンテンツが変わる頻度が低く、パフォーマンスとスケーラビリティが重要な場合は、
+// SSG（getStaticProps）が最適です。
