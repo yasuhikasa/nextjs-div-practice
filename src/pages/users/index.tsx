@@ -6,6 +6,7 @@ import { Users } from '../types/users';
 import Pagination from '../components/pagination/pagination';
 import { useRouter } from 'next/router';
 import Button from '../components/button/button';
+import SsrPagination from '../components/pagination/ssr';
 
 
 
@@ -34,6 +35,11 @@ const Index:React.FC =()=> {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
 
+  const handlePageChange = (page: number) => {
+    setPage(page);
+    router.push(`/?page=${page}`);
+  }
+
   // セレクトボックスの状態
   const [action, setAction] = useState('');
 
@@ -53,7 +59,8 @@ const Index:React.FC =()=> {
     if (allUsersSelected) {
       setSelectedUsers({});
     } else {
-      setSelectedUsers(users.reduce((obj, user) => (user.id ? { ...obj, [user.id.toString()]: true } : obj), {}));
+      setSelectedUsers(users.reduce((obj, user) => (user.id ? { ...obj, [user.id.toString()]: true } : obj), {} as Record<string, boolean>));
+
     }
   };
 
@@ -154,9 +161,9 @@ const Index:React.FC =()=> {
             <div>{user.firstName} {user.lastName}</div>
             <div>{user.email}</div>
             <div>{user.phone}</div>
-            <div>{genderLabels[user.gender]}</div>
-            <div>{formatDate(user.dateOfBirth)}</div>
-            <div>{jobOptionsMap[user.job]}</div>
+            <div>{genderLabels[user.gender ?? '']}</div>
+            <div>{formatDate(user.dateOfBirth ?? '')}</div>
+            <div>{jobOptionsMap[user.job ?? '']}</div>
             <div>
               <Button
                 title="Edit"
@@ -166,7 +173,7 @@ const Index:React.FC =()=> {
             </div>
           </div>
         ))}
-        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        <SsrPagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
       </div>
     </Layout>
   );
