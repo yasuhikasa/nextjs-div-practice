@@ -244,9 +244,9 @@ const CreateUser: React.FC = () => {
                 <p>セイ:  {users.lastNameKana}   メイ: {users.firstNameKana}</p>
                 <p>メールアドレス:  {users.email}</p>
                 <p>電話番号:  {users.phone}</p>
-                <p>性別:  {genderLabels[users.gender]}</p>
+                <p>性別:  {users.gender ? genderLabels[users.gender] : ''}</p>
                 <p>生年月日:  {users.dateOfBirth}</p>
-                <p>職業:  {jobOptionsMap[users.job]}</p>
+                <p>職業:  {users.job ? jobOptionsMap[users.job] : ''}</p>
                 <p>備考:  {users.notes}</p>
                 <div className={modalStyles.submit}>
                   <Button title="キャンセル" className={modalStyles.cancelButton} onClick={closeModal} />

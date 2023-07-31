@@ -1,11 +1,18 @@
 import Head from 'next/head'
 import Layout from './components/layout/layout';
-import React from 'react';
+import React, { useState } from 'react';
 import SimpleLogin from './components/simpleLogin/simpleLogin';
 import SimpleSignup from './components/simpleLogin/simpleSignup';
+import { Modal } from './components/modal/modal';
 
 
 export default function Home() {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const closeModal = () => setModalOpen(false);
+  const openModal = () => setModalOpen(true);
+
   return (
     <>
       <Head>
@@ -17,6 +24,18 @@ export default function Home() {
       <Layout>
         <SimpleLogin />
         <SimpleSignup />
+        <div>
+          <button onClick={openModal}>
+            モーダルを開く
+          </button>
+
+          <Modal
+            isOpen={isModalOpen}
+            closeModal={closeModal}
+            title="モーダルのタイトル"
+            content="モーダルの内容"
+          />
+        </div>
     </Layout>
     </>
   )
