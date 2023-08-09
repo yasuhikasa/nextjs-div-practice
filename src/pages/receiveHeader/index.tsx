@@ -82,3 +82,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 //     props: { customHeaderValue },
 //   };
 // };
+
+
+
+//モバイルアプリの場合
+// import { GetServerSideProps } from 'next';
+
+// type ReceiveHeaderProps = {
+//   customHeaderValue: string;
+// };
+
+// const ReceiveHeader = ({ customHeaderValue }: ReceiveHeaderProps) => (
+//   <div>
+//     <h1>Received custom header:</h1>
+//     <p>{customHeaderValue}</p>
+//   </div>
+// );
+
+// export default ReceiveHeader;
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   // バックエンドからヘッダー情報を取得
+//   const response = await fetch('http://localhost:3001/receiveHeader');
+//   const customHeaderValue = await response.text();
+
+//   return {
+//     props: { customHeaderValue },
+//   };
+// };
