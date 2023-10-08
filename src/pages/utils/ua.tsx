@@ -153,6 +153,7 @@ IPv4射影アドレス変換処理
 // return ipv4Addr
 // }
 export const cnvIpv4MappedAddressToIpv4Address = (ipv4MappedAddr: string): string => {
+    // 指定されたipv4MappedAddrがIPv6アドレスであるかどうかをチェックするためのメソッド
     if (ipaddr.IPv6.isIPv6(ipv4MappedAddr) === true) {
       const addr = ipaddr.IPv6.parse(ipv4MappedAddr);
       if (addr.isIPv4MappedAddress()) {
