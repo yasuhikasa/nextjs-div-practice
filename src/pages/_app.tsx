@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { FormDataProvider } from './context/formDataProvider';
 import { Auth } from '@aws-amplify/auth';
-import awsconfig from './awsconfig';
+import awsconfig from './utils/awsconfig';
 import Navigation from './components/navi/navi';
 
 
