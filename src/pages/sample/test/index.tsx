@@ -8,7 +8,7 @@ const Test:React.FC =()=> {
     isLocalhost();
   }, []);
 
-  console.log(isLocalhost());
+  console.log("result",isLocalhost());
 
   return (
     <div>
