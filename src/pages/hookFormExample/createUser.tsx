@@ -250,7 +250,7 @@ const CreateUser: React.FC = () => {
             <p>セイ:  {watchedFields.lastNameKana}   メイ: {watchedFields.firstNameKana}</p>
             <p>メールアドレス:  {watchedFields.email}</p>
             <p>電話番号:  {watchedFields.phone}</p>
-            <p>性別:  {genderLabels[watchedFields.gender]}</p>
+            <p>性別:  {genderLabels[watchedFields.gender || '']}</p>
             <p>生年月日:  {watchedFields.dateOfBirth}</p>
             <p>職業:  {watchedFields.job}</p>
             <p>備考:  {watchedFields.notes}</p>
