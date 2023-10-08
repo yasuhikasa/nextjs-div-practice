@@ -121,7 +121,7 @@ export const md5 = (word: string) => crypto.createHash("MD5").update(word).diges
 export const isLocalhost = function (request: any) {
 const ip = getClientIp(request)
 const ipv4Addr = cnvIpv4MappedAddressToIpv4Address(ip)
-return ipv4Addr.indexOf(defaultGateWayIpAddress) > -1
+return ipv4Addr === "127.0.0.1" || ipv4Addr === "::1";
 }
 /**
 
@@ -144,14 +144,26 @@ IPv4射影アドレス変換処理
 @param {string} ipv4MappedAddr IPv4射影アドレス
 @returns {string} IPv4アドレス
 */
+// export const cnvIpv4MappedAddressToIpv4Address = (ipv4MappedAddr: string): string => {
+// let ipv4Addr = "0.0.0.0"
+// if (ipaddr.IPv6.isIPv6(ipv4MappedAddr) === true) {
+// const addr = ipaddr.IPv6.parse(ipv4MappedAddr)
+// ipv4Addr = addr.toIPv4Address().toString()
+// }
+// return ipv4Addr
+// }
 export const cnvIpv4MappedAddressToIpv4Address = (ipv4MappedAddr: string): string => {
-let ipv4Addr = "0.0.0.0"
-if (ipaddr.IPv6.isIPv6(ipv4MappedAddr) === true) {
-const addr = ipaddr.IPv6.parse(ipv4MappedAddr)
-ipv4Addr = addr.toIPv4Address().toString()
-}
-return ipv4Addr
-}
+    if (ipaddr.IPv6.isIPv6(ipv4MappedAddr) === true) {
+      const addr = ipaddr.IPv6.parse(ipv4MappedAddr);
+      if (addr.isIPv4MappedAddress()) {
+        return addr.toIPv4Address().toString();
+      }
+    }
+    return ipv4MappedAddr; // ここを変更して、IPv4マッピングアドレスでない場合は入力アドレスをそのまま返す
+  }
+  
+
+
 // /**
 
 // デフォルトゲートウェイ IPアドレス取得
