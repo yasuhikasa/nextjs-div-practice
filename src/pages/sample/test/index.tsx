@@ -1,20 +1,46 @@
-import React, { useEffect } from 'react';
-import { isLocalhost } from '@/pages/utils/ua';
+// import React, { useEffect } from 'react';
+// import { isLocalhost } from '@/pages/utils/ua';
 
 
-const Test:React.FC =()=> {
+// const Test:React.FC =()=> {
 
-  useEffect(() => {
-    isLocalhost();
-  }, []);
+//   useEffect(() => {
+//     isLocalhost();
+//   }, []);
 
-  console.log("result",isLocalhost());
+//   console.log("result",isLocalhost());
 
+//   return (
+//     <div>
+//       Enter your code here
+//     </div>
+//   );
+// }
+
+// export default Test;
+
+// pages/index.tsx
+import { getClientIp, isLocalhost } from '@/pages/utils/ua';
+
+const HomePage = ({ ip, isLocal }: { ip: string; isLocal: boolean }) => {
   return (
     <div>
-      Enter your code here
+      <p>クライアントのIPアドレス: {ip}</p>
+      <p>ローカルホスト: {isLocal ? 'はい' : 'いいえ'}</p>
     </div>
   );
-}
+};
 
-export default Test;
+export const getServerSideProps = async (context: any) => {
+  const ip = getClientIp(context.req);
+  const isLocal = isLocalhost(context.req);
+
+  return {
+    props: {
+      ip,
+      isLocal
+    }
+  };
+};
+
+export default HomePage;
