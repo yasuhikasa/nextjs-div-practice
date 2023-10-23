@@ -121,7 +121,7 @@ export const md5 = (word: string) => crypto.createHash("MD5").update(word).diges
 export const isLocalhost = function (request: any) {
 const ip = getClientIp(request)
 const ipv4Addr = cnvIpv4MappedAddressToIpv4Address(ip)
-return ipv4Addr === "127.0.0.1" || ipv4Addr === "::1";
+return ip === "127.0.0.1" || ipv4Addr === "::1";
 }
 /**
 
