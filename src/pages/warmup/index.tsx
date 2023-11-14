@@ -67,8 +67,6 @@ const Warmup: React.FC = () => {
 
     const loadPage = (url: string) => {
       const iframe = document.getElementById('iframe') as HTMLIFrameElement;
-
-      iframe.src = url;
       iframe.onload = () => {
         if (currentIndex < urls.length - 1) {
           setTimeout(() => setCurrentIndex(prev => prev + 1), 100);
@@ -77,6 +75,7 @@ const Warmup: React.FC = () => {
           // router.push('/page/common/0g?warmup=true');
         }
       };
+      iframe.src = url;
     };
 
     if (urls[currentIndex]) {
