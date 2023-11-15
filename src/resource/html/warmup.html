@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-script-type" content="text/javascript">
+    <meta http-equiv="content-style-type" content="text/css">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=800"> 
+    <title>ウォームアップ画面</title>
+<style>
+  body {
+    background-color: #000000;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+  <iframe id="iframe" width="800" height="480" scrolling="no" frameborder="no" style="position:absolute; margin:0px; top:500px; left:0px; overflow:hidden"></iframe>
+
+    <script type="text/javascript">
+        const urls = [
+            // ウォームアップのトリガページなど
+        ];
+
+        const lastPage = "page/common/0g"; //待機画面
+        const host = "http://127.0.0.1/";
+        let loaded = false;
+        let idx = 0;
+        const iframe = document.getElementById("iframe");
+
+        const checkLoaded = () => {
+            if (!loaded) {
+                iframe.src = `${host}${urls[0]}`;
+            }
+            setTimeout(() => {
+                if (!loaded) {
+                    iframe.src = `${host}${urls[0]}`; // warmupページへアクセスリトライ
+                }
+            }, 500);
+        };
+
+        const nextPage = () => {
+            setTimeout(() => {
+                if (++idx === urls.length) {
+                    window.location.href = `${host}${lastPage}?warmup=true`; // クローリング終了
+                    return;
+                }
+                iframe.src = `${host}${urls[idx]}?warmup=true`;
+            }, 100);
+        };
+
+        const receiveMessage = (event) => {
+            if (event.data === "loaded") {
+                loaded = true;
+            } else if (event.data === "start crawling") {
+                iframe.onload = nextPage;
+                nextPage();
+            }
+        };
+
+        window.addEventListener("message", receiveMessage, false);
+        iframe.onload = checkLoaded;
+        checkLoaded();
+    </script>
+</body>
+</html>
