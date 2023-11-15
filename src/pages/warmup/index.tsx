@@ -57,13 +57,13 @@ import { useRouter } from 'next/router';
 const Warmup: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
-  const urls: string[] = [
-    'http://localhost:3000/search/users',
-    'http://localhost:3000/contactUs',
-    // ... その他のURL
-  ];
 
   useEffect(() => {
+    const urls: string[] = [
+      'http://localhost:3000/search/users',
+      'http://localhost:3000/contactUs',
+      // ... その他のURL
+    ];
 
     const loadPage = (url: string) => {
       const iframe = document.getElementById('iframe') as HTMLIFrameElement;
@@ -81,7 +81,7 @@ const Warmup: React.FC = () => {
     if (urls[currentIndex]) {
       loadPage(urls[currentIndex]);
     }
-  }, [currentIndex, urls]);
+  }, [currentIndex]);
 
 return (
   <div style={{ backgroundColor: 'black', height: '100vh', width: '100vw' }}>
