@@ -81,7 +81,7 @@ const Warmup: React.FC = () => {
     if (urls[currentIndex]) {
       loadPage(urls[currentIndex]);
     }
-  }, [currentIndex]);
+  }, [currentIndex, urls]);
 
 return (
   <div style={{ backgroundColor: 'black', height: '100vh', width: '100vw' }}>
