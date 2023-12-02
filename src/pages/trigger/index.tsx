@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 
+// public・・・静的ファイル。そのままエンドポイント（.html）となる。htmlやsvgなど。
+
+// pages直下もエンドポイントという。サーバーが起きているか？ページがロードされているか？の確認は、
+// fetchでpages直下のページをエンドポイントに確認すればいい。（await fetch ・・・）
+// ポストマンでも、レスポンスとしてページビューやhtmlが返ってくる。
+
 const WarmupTrigger = () => {
   useEffect(() => {
     const lastPage = '/page/common/0g?warmup=start';
