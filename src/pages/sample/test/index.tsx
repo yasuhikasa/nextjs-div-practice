@@ -23,7 +23,7 @@
 import { getClientIp, isLocalhost } from '@/pages/utils/ua';
 import { NextPage } from 'next';
 
-const HomePage:NextPage = ({ ip, isLocal }: { ip: string; isLocal: boolean }) => {
+const HomePage: NextPage<{ ip: string; isLocal: boolean }> = ({ ip, isLocal }) => {
   return (
     <div>
       <p>クライアントのIPアドレス: {ip}</p>
