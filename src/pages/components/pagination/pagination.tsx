@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../../styles/components/pagination.module.css';
+import { NextPage } from 'next';
 
 interface PaginationProps {
   page: number;
@@ -7,7 +8,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ page, totalPages, onPageChange }) => {
+const Pagination: NextPage<PaginationProps> = ({ page, totalPages, onPageChange }) => {
   const previousPage = () => {
     if (page > 1) {
       onPageChange(page - 1);

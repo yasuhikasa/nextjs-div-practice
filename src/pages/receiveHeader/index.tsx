@@ -1,11 +1,11 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 
 type ReceiveHeaderProps = {
   customHeaderValue: string;
   mobileHeaderValue: string;
 };
 
-const ReceiveHeader = (props: ReceiveHeaderProps) => {
+const ReceiveHeader:NextPage<ReceiveHeaderProps> = (props) => {
   return (
     <div>
       <h1>Received custom header:</h1>

@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import React, { FC, useState } from 'react';
 
 interface CheckBoxProps {
@@ -8,7 +9,7 @@ interface CheckBoxProps {
 
 //１月から１２月までを複数選択できるチェックボックス
 // オブジェクトからチェックボックスの種類の配列を用意して、mapで回したい
-const CheckBox: FC<CheckBoxProps> = ({ name, onSelectionChange }) => {
+const CheckBox: NextPage<CheckBoxProps> = ({ name, onSelectionChange }) => {
   const months = [
     '1月', '2月', '3月', '4月', '5月', '6月',
     '7月', '8月', '9月', '10月', '11月', '12月',

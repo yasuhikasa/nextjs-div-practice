@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import React, { FC } from 'react';
 
 interface RadioButtonOption {
@@ -12,7 +13,7 @@ interface RadioButtonProps {
 
 // ラジオボタンのコンポーネントを作りたい。
 // その際、オブジェクトでラジオボタンの種類の配列を用意して、mapで回したい
-const RadioButton: FC<RadioButtonProps> = ({ name, options }) => {
+const RadioButton: NextPage<RadioButtonProps> = ({ name, options }) => {
   return (
     <div>
       {options.map((option, index) => (

@@ -6,10 +6,11 @@ import { ContactUs } from '../types/contactUs';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { FormDataContext } from '../context/formDataProvider';
+import { NextPage } from 'next';
 
 
 
-const Index:React.FC = () => {
+const Index:NextPage = () => {
 
   const router = useRouter();
 

@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import { NextPage } from 'next';
+import React, { useState } from 'react';
 
 // テキストボックスのコンポーンネントを作りたい。
 //その際、何かしらエラーが出たら、errorのpropsを渡して、テキストボックスを赤くしたい。
@@ -12,7 +13,7 @@ interface TextBoxProps {
 //inputタグのtype属性は、propsで1ならtext,2ならnumber,3ならpassword、デフォルトは0としたい。
 //widthとheightは、propsで渡せるようにしたい。
 //errorは、propsで渡せるようにしたい。
-const TextBox: FC<TextBoxProps> = ({
+const TextBox: NextPage<TextBoxProps> = ({
   error = false,
   inputType = 0,
   width = '200px',

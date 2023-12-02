@@ -3,13 +3,14 @@ import styles from '../../../styles/components/header.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NextPage } from 'next';
 
 interface HeaderProps {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
+const Header: NextPage<HeaderProps> = ({ isMenuOpen, setIsMenuOpen }) => {
   const router = useRouter();
 
   const getContentName = () => {

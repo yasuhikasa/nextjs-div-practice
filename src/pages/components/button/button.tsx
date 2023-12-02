@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import React from 'react';
 
 interface ButtonProps {
@@ -8,7 +9,7 @@ interface ButtonProps {
 
 }
 
-const Button:React.FC<ButtonProps> =({ title ,buttonType, onClick, className })=> {
+const Button:NextPage<ButtonProps> =({ title ,buttonType, onClick, className })=> {
   return (
     <div>
       <button type={buttonType} className={className} onClick={onClick}>{title}</button>

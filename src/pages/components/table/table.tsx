@@ -1,8 +1,9 @@
+import { NextPage } from 'next';
 import styles from '../../../styles/components/table.module.css';
 import { Users } from '../../types/users';
 
 // テーブルのコンポーネント
-const TableComponent =({ users }: { users: Users[] }) => {
+const TableComponent: NextPage<{ users: Users[] }> = ({ users }) => {
   return (
     <table className={styles.table}>
       <thead>

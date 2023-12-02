@@ -3,9 +3,10 @@ import { FormDataContext } from '../context/formDataProvider';
 import Button from '../components/button/button';
 import PostContactUs from '../api/postContactUs';
 import { useRouter } from 'next/router';
+import { NextPage } from 'next';
 
 
-const Confirm:React.FC = () => {
+const Confirm:NextPage = () => {
   const context = useContext(FormDataContext);
 
   const router = useRouter();

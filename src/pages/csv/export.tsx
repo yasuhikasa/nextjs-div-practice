@@ -3,9 +3,10 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import { format } from 'date-fns';
+import { NextPage } from 'next';
 
 
-const UserExport: React.FC = () => {
+const UserExport: NextPage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 

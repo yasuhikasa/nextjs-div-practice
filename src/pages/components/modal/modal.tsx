@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../../styles/components/normalModal.module.css';
+import { NextPage } from 'next';
 
 // プロップスの型定義
 interface ModalProps {
@@ -10,7 +11,7 @@ interface ModalProps {
 }
 
 // モーダルコンポーネント
-export const Modal: React.FC<ModalProps> = ({ isOpen, closeModal, title, content }) => {
+export const Modal: NextPage<ModalProps> = ({ isOpen, closeModal, title, content }) => {
   if (!isOpen) {
     return null;
   }

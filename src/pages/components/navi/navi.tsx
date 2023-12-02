@@ -1,6 +1,7 @@
+import { NextPage } from 'next';
 import Link from 'next/link';
 
-const navigation: React.FC = () => (
+const navigation: NextPage = () => (
   <nav>
     AWS：Amplify
     <Link href="/auth/signUp">Sign Up</Link>

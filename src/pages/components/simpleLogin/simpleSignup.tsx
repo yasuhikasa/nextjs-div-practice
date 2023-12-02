@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Users } from '../../types/users';
+import { NextPage } from 'next';
 
-const SimpleSignup = () => {
+const SimpleSignup:NextPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<Users>();
 
 

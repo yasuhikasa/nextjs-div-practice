@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Papa from 'papaparse';
 import axios from 'axios';
+import { NextPage } from 'next';
 
 
 export interface User {
@@ -15,7 +16,7 @@ export interface User {
   job: string;
 }
 
-const UserImport: React.FC = () => {
+const UserImport: NextPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 

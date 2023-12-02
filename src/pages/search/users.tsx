@@ -3,8 +3,9 @@ import Layout from '../components/layout/layout';
 import { Users } from '../types/users';
 import { searchUsers } from '../api/searchUsers';
 import TableComponent from '../components/table/table';
+import { NextPage } from 'next';
 
-const SearchUsers: React.FC = () => {
+const SearchUsers: NextPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [users, setUsers] = useState<Users[]>([]); // Add this line
 

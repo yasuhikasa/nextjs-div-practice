@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../../styles/components/pagination.module.css';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getUsers, getTotalUsers } from '../../api/user'; // Replace with actual path to API
 
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<ServerSideProps> = async (co
   }
 }
 
-const SsrPagination: React.FC<PaginationProps> = ({ page, totalPages }) => {
+const SsrPagination: NextPage<PaginationProps> = ({ page, totalPages }) => {
   const router = useRouter();
 
   const onPageChange = (pageNum: number) => {
