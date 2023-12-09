@@ -2,29 +2,34 @@
 sequenceDiagram
     participant コンテンツサーバー
     participant ブラウザAPI
-    participant publichtml/warmup.html
+    participant index.tsx
+    participant indexRedirect.tsx
+    participant public_html_warmup.html
     participant warmupTrigger.tsx
     participant warmup.tsx
 
     コンテンツサーバー->>ブラウザAPI: 起動
-    ブラウザAPI->>publichtml/warmup.html: 各種起動プロセス
-    publichtml/warmup.html->>warmupTrigger.tsx: iframeでレンダリング
+    ブラウザAPI->>index.tsx: レンダリング
+    index.tsx->>indexRedirect.tsx: リダイレクト
+    indexRedirect.tsx->>public_html_warmup.html: レンダリング
+    public_html_warmup.html->>warmupTrigger.tsx: iframeでレンダリング
     loop loadedメッセージの確認
-        warmupTrigger.tsx->>publichtml/warmup.html: loadedメッセージ送信
+        warmupTrigger.tsx->>public_html_warmup.html: loadedメッセージ送信
         alt loadedメッセージを確認
-            publichtml/warmup.html->>warmupTrigger.tsx: HTTPリクエストを送る
+            public_html_warmup.html->>warmupTrigger.tsx: HTTPリクエストを送る
             warmupTrigger.tsx->>warmup.tsx: HTTPリクエストを送る
             alt HTTPリクエストが200
-                warmupTrigger.tsx->>publichtml/warmup.html: start crawlingメッセージ送信
-                publichtml/warmup.html->>publichtml/warmup.html: ダッシュボードページをiframeでレンダリング
+                warmupTrigger.tsx->>public_html_warmup.html: start crawlingメッセージ送信
+                public_html_warmup.html->>public_html_warmup.html: ダッシュボードページをiframeでレンダリング
             else HTTPリクエストがエラー
                 warmupTrigger.tsx->>warmup.tsx: HTTPリクエストを再送
             end
         else loadedメッセージを確認できない
-            publichtml/warmup.html->>warmupTrigger.tsx: 0.5秒ごとに再レンダリング
+            public_html_warmup.html->>warmupTrigger.tsx: 0.5秒ごとに再レンダリング
         end
     end
-    publichtml/warmup.html->>warmup.tsx: 画面遷移
+    public_html_warmup.html->>warmup.tsx: 画面遷移
+
 
 
 ```
