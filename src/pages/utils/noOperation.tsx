@@ -86,7 +86,7 @@ export const useOperationCheck = (csrfToken) => {
 };
 
 // ボタン連打防止
-function createClickLockManager() {
+const createClickLockManager =()=> {
     let locked = false;
     let timer = null;
   
